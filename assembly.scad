@@ -2,4 +2,4 @@ include <desk.scad>
 include <lift.scad>
 
 color("brown") desk();
-translate([0, -rear_box_depth, 0]) base(4, 6, 8, 12);
+translate([0, -rear_frame_depth, 0]) base(0, 0, 0, 0);
