@@ -46,15 +46,17 @@ module cover() {
 }
 
 module carrier(h_position, v_position) {
-     translate([-carrier_width/2, 0, v_position*carrier_max/2]) {
-          color("yellow")
-               union() {
-               cube([carrier_width, strut_size, strut_size]);
-               cube([strut_size, strut_size, carrier_height]);
-               translate([carrier_width-strut_size, 0, 0]) cube([strut_size, strut_size, carrier_height]);
+     translate([0, 0, v_position*carrier_max]) {
+          translate([-carrier_width/2, 0, 0]) {
+               color("yellow")
+                    union() {
+                    cube([carrier_width, strut_size, strut_size]);
+                    cube([strut_size, strut_size, carrier_height]);
+                    translate([carrier_width-strut_size, 0, 0]) cube([strut_size, strut_size, carrier_height]);
+               }
           }
+          riser(h_position, v_position);
      }
-     riser(h_position, v_position);
 }
 
 module riser(h_position, v_position) {
@@ -72,12 +74,14 @@ module riser(h_position, v_position) {
 }
 
 module fork(h_position) {
-     translate([-fork_width/2, h_position*fork_max/2+strut_size, 0]) {
-          cube([fork_width, strut_size, strut_size]);
-          cube([strut_size, fork_depth, strut_size]);
-          translate([fork_width-strut_size, 0, 0]) cube([strut_size, fork_depth, strut_size]);
+     translate([0, h_position*fork_max+strut_size, 0]) {
+          translate([-fork_width/2, 0, 0]) {
+               cube([fork_width, strut_size, strut_size]);
+               cube([strut_size, fork_depth, strut_size]);
+               translate([fork_width-strut_size, 0, 0]) cube([strut_size, fork_depth, strut_size]);
+          }
+          jib(h_position);
      }
-     jib(h_position);
 }
 
 module jib(h_position) {
