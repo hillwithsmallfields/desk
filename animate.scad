@@ -1,7 +1,7 @@
 include <desk.scad>
 include <lift.scad>
 
-stages = [ 0.0, 0.1, 0.2, 0.3, 0.5, 0.8, 1.0];
+stages = [ 0.0, 0.2, 0.4, 0.6, 1.0];
 
 /* which of a series of stages a value is in */
 function stage(stages, threshold, i) =
@@ -16,15 +16,10 @@ function offset_in_stage(stages, f, stage) =
 
 /* return the position of something that moves in stage m, when the variable is f */
 function position(stages, m, f) = (let (s = stage(stages, f, 0))
-                          m < s ? 0 : (m > s ? 1 : offset_in_stage(stages, f, s)));
+                          s < m ? 0 : (s > m ? 1 : offset_in_stage(stages, f, s)));
 
-i = 0;
-f = 0;
-echo("mover in stage", i, "control variable", f, "which is in stage", stage(stages, f, 0), "at position", position(stages, i, f));
-
-t = 1;
 color("brown") desk();
-translate([0, -rear_frame_depth, 0]) base(position(stages, 1, t),
-                                          position(stages, 0, t),
-                                          position(stages, 3, t),
-                                          position(stages, 2, t));
+translate([0, -rear_frame_depth, 0]) base(position(stages, 1, $t),
+                                          position(stages, 0, $t),
+                                          position(stages, 3, $t),
+                                          position(stages, 2, $t));
