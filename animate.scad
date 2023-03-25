@@ -22,7 +22,7 @@ function in_and_out(f) = (f <= 0.5 ? f : (1.0 - f)) * 2.0;
 
 color("brown") desk();
 t = in_and_out($t);
-translate([0, -rear_frame_depth, 0]) base(position(stages, 1, t),
-                                          position(stages, 0, t),
-                                          position(stages, 3, t),
-                                          position(stages, 2, t));
+translate([0, -rear_frame_depth, 0]) structure(position(stages, 1, t),
+                                               position(stages, 0, t),
+                                               position(stages, 3, t),
+                                               position(stages, 2, t));

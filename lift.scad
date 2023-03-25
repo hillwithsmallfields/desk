@@ -1,5 +1,11 @@
 include <dimensions.scad>
 
+module structure(cover_h, cover_v, h_position, v_position) {
+     base(cover_h, cover_v, h_position, v_position);
+     cover_lift(cover_h, cover_v);
+     carrier(h_position, v_position);
+}
+
 module base(cover_h, cover_v, h_position, v_position) {
      translate([-base_width/2, 0, 0]) {
           color("blue")
@@ -19,8 +25,6 @@ module base(cover_h, cover_v, h_position, v_position) {
                }
           }
      }
-     cover_lift(cover_h, cover_v);
-     carrier(h_position, v_position);
 }
 
 module cover_lift(cover_h, cover_v) {
@@ -75,10 +79,12 @@ module riser(h_position, v_position) {
 
 module fork(h_position) {
      translate([0, h_position*fork_max+strut_size, 0]) {
-          translate([-fork_width/2, 0, 0]) {
-               cube([fork_width, strut_size, strut_size]);
-               cube([strut_size, fork_depth, strut_size]);
-               translate([fork_width-strut_size, 0, 0]) cube([strut_size, fork_depth, strut_size]);
+          color("purple") {
+               translate([-fork_width/2, 0, 0]) {
+                    cube([fork_width, strut_size, strut_size]);
+                    cube([strut_size, fork_depth, strut_size]);
+                    translate([fork_width-strut_size, 0, 0]) cube([strut_size, fork_depth, strut_size]);
+               }
           }
           jib(h_position);
      }

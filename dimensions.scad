@@ -18,6 +18,7 @@ strut_size  = 1.25;             /* actually 30mm */
 rear_box_depth = 18;
 rear_frame_depth = rear_box_depth - strut_size;
 
+/* how much of the way each slider goes */
 full_extension = 3.0 / 4.0;
 
 cover_frame_width = top_width - strut_size * 6;
