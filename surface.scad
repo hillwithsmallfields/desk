@@ -44,22 +44,41 @@ module pen_groove() {
           }
 }
 
-difference() {
-     cube([desk_width, desk_depth, desk_thickness]);
-     translate([(desk_width - leather_width) / 2,
-                leather_offset,
-                desk_thickness - leather_thickness]) {
-          cube([leather_width, leather_depth, leather_thickness]);
-     }
-     translate([desk_width - turntable_from_right,
-                turntable_from_front,
-                desk_thickness - turntable_depth]) {
-          difference() {
-               cylinder(h=turntable_depth,
-                        d=turntable_outer_diameter);
-               cylinder(h=turntable_depth,
-                        d=turntable_inner_diameter);
-          }
-     }
-     translate([desk_width/2, leather_offset + leather_depth + leather_offset, 0]) pen_groove();
+module desk_surface() {
+    difference() {
+         cube([desk_width, desk_depth, desk_thickness]);
+         translate([(desk_width - leather_width) / 2,
+                    leather_offset,
+                    desk_thickness - leather_thickness]) {
+              cube([leather_width, leather_depth, leather_thickness]);
+         }
+         translate([desk_width - turntable_from_right,
+                    turntable_from_front,
+                    desk_thickness - turntable_depth]) {
+              difference() {
+                   cylinder(h=turntable_depth,
+                            d=turntable_outer_diameter);
+                   cylinder(h=turntable_depth,
+                            d=turntable_inner_diameter);
+              }
+         }
+         translate([desk_width/2, leather_offset + leather_depth + leather_offset, 0]) pen_groove();
+    }
 }
+
+module left_half() {
+     intersection() {
+          desk_surface();
+          cube([desk_width/2, desk_depth, desk_thickness]);
+     }
+}
+
+module right_half() {
+     intersection() {
+          translate([-desk_width/2, 0, 0]) desk_surface();
+          cube([desk_width/2, desk_depth, desk_thickness]);
+     }
+}
+
+left_half();
+translate([1000, 0, 0]) right_half();
